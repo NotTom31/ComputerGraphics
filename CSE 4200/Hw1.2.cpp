@@ -38,7 +38,7 @@ void init(void) {
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glPointSize(5.0);
+    glPointSize(1.0);
     gluOrtho2D(-5, 4, -1, 1);
     glLineWidth(2);
 }
@@ -47,30 +47,30 @@ void drawPoint() {
 
     double x; double y;
     moveTo(-10, 0);
-    for (x = -10; x < 10; x += .125) {
+    for (x = -10; x < 10; x += .005) {
         y = f(x);
         glBegin(GL_POINTS);
         lineTo(x, y);
     }
 }
 
-void drawCurve() {
-
-    double x; double y;
-    moveTo(-10, 0);
-    for (x = -10; x < 10; x += .005) {
-        y = f(x);
-        glBegin(GL_LINES);
-        lineTo(x, y);
-    }
-}
+//void drawCurve() {
+//
+//    double x; double y;
+//    moveTo(-10, 0);
+//    for (x = -10; x < 10; x += .005) {
+//        y = f(x);
+//        glBegin(GL_LINES);
+//        lineTo(x, y);
+//    }
+//}
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(1, 0, 0);
 
     //glViewport(VWIDTH / 8, VHEIGHT / 2, VWIDTH / 2, VHEIGHT / 2);
-    drawCurve();
+    //drawCurve();
     drawPoint();
     glFlush();
 }
