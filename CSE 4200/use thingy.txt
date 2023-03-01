@@ -1,0 +1,11 @@
+type cmd in the top bar
+
+g++ -g Lab1.cpp -lopengl32 -lglu32 -lfreeglut
+g++ -g Lab1.1.cpp -lopengl32 -lglu32 -lfreeglut
+g++ -g Lab2.cpp -lopengl32 -lglu32 -lfreeglut
+g++ -g Lab3.cpp -lopengl32 -lglu32 -lfreeglut
+g++ -g Game.cpp -lopengl32 -lglu32 -lfreeglut
+g++ -g Hw1.1.cpp -lopengl32 -lglu32 -lfreeglut
+g++ -g Hw1.2.cpp -lopengl32 -lglu32 -lfreeglut
+g++ -g Hw1.3.cpp -lopengl32 -lglu32 -lfreeglut
+g++ -g Hw1.4.cpp -lopengl32 -lglu32 -lfreeglut
