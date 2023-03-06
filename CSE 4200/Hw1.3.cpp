@@ -1,86 +1,56 @@
-//draw_main.cpp: main loop of drawing program
-
+#include <GL/gl.h>
 #include <GL/glut.h>
-#include <math.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cmath>
+#include "canvas.h"
 
-//initialization
-void init(void)
-{
-    glClearColor(1.0, 1.0, 1.0, 0.0);	//get white background color
-    glColor3f(0.0f, 0.0f, 0.0f);	//set drawing color
-    glPointSize(4.0);			//a dot is 4x4
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();			//replace current matrix with identity matrix
-    gluOrtho2D(-12.0, 12.0, 20.0, -15.0);
-}
+using namespace std;
 
-void makecylinder(float height, float Base)
-{
-	GLUquadricObj* qobj;
-	qobj = gluNewQuadric();
-	glColor3f(0, 0, 0);
-	glPushMatrix();
-	glRotatef(-90, 1.0, 0.0, 0.0);
-	gluCylinder(qobj, Base, Base - (0.2 * Base), height, 20, 20);
-	glPopMatrix();
-}
+Canvas cvs(640, 480, "try out Canvas"); //global canvas object
 
-void maketree(float height, float Base)
-{
 
-	glPushMatrix();
-	float angle;
-	makecylinder(height, Base);
-	glTranslatef(0.0, height, 0.0);
-	height -= height * 0.2;
-	Base -= Base * 0.3;
-
-	if (height > 1)
-	{
-		angle = 30;
-		glPushMatrix();
-		glRotatef(angle, -1.0, 0.0, 0.0);
-		maketree(height, Base);
-		glPopMatrix();
-		glPushMatrix();
-		glRotatef(angle, 0.5, 0.0, 0.866);
-		maketree(height, Base);
-		glPopMatrix();
-		glPushMatrix();
-		glRotatef(angle, 0.5, 0.0, -0.866);
-		maketree(height, Base);
-		glPopMatrix();
+void drawTree(int n, float x, float y, float size, float angle) {
+	if (n == 0) { //end if we finish all the branches
+		return;
 	}
-	glPopMatrix();
+
+	if (n > 2) {
+		cvs.setColor(1.0, 0.8, 0.7); //set tree brown
+	}
+	else
+		cvs.setColor(0.0, 1.0, 0.2); //set leaves green
+
+	// Draw the current branch
+	float x2 = x + size * cos(angle * M_PI / 180.0);
+	float y2 = y + size * sin(angle * M_PI / 180.0);
+	cvs.moveTo(x, y);
+	cvs.lineTo(x2, y2);
+
+	// Draw two smaller branches
+	float size_factor = 0.9; // controls the size of the smaller branches
+	float angle_factor = 25.0; // controls the angle between the branches
+	drawTree(n - 1, x2, y2, size * size_factor, angle + angle_factor);
+	drawTree(n - 1, x2, y2, size * size_factor, angle - angle_factor);
 }
 
 
 
-void display(void)
+void display()
 {
-    glClear(GL_COLOR_BUFFER_BIT);	//clear screen
-    glBegin(GL_LINES);			//draw points
-	maketree(4.0, 0.1);
+	cvs.clearScreen();    //clear screen
 
-    glEnd();
-    glFlush();				//send all output to screen
+	drawTree(10, 0, -20, 10, 90);
+	glFlush();
 }
 
-/*  Main Loop
- *  Open window with initial window size, title bar,
- *  RGB display mode, depth buffer.
- */
-int main(int argc, char** argv)
+int main(void)
 {
-    glutInit(&argc, argv);	//initialize toolkit
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);	//set display mode: single bufferring, RGBA model
-    glutInitWindowSize(500, 500);		//set window size on screen
-    glutInitWindowPosition(100, 150); 	//set window position on screen
-    glutCreateWindow(argv[0]);		//open screen window
-    init();
-    glutDisplayFunc(display);		//points to display function
-    glutMainLoop();			//go into perpetual loop
-    return 0;
+	extern Canvas cvs;
+	cvs.setWindow(-60.0, 60.0, -60.0, 60.0);
+	cvs.setViewport(0, 500, 0, 500);
+	cvs.setBackgroundColor(1.0, 1.0, 1.0);
+	cvs.setColor(0.0, 0.0, 0.0);
+
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+	glutDisplayFunc(display);
+	glutMainLoop();
 }
