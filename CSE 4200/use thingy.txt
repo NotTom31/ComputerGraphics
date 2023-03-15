@@ -10,3 +10,5 @@ g++ -g Hw1.2.cpp -lopengl32 -lglu32 -lfreeglut
 g++ -g Hw1.3.cpp -lopengl32 -lglu32 -lfreeglut
 g++ -g Hw1.4.cpp -lopengl32 -lglu32 -lfreeglut
 g++ -g Lab5.cpp -lopengl32 -lglu32 -lfreeglut
+g++ -g Hw2.1.cpp -lopengl32 -lglu32 -lfreeglut
+g++ -g Hw2.2.cpp -lopengl32 -lglu32 -lfreeglut
