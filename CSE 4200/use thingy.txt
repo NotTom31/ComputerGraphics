@@ -15,3 +15,5 @@ g++ -g Hw2.2.cpp -lopengl32 -lglu32 -lfreeglut
 g++ -g Hw2.3.cpp -lopengl32 -lglu32 -lfreeglut
 g++ -g Hw4.1.cpp -lopengl32 -lglu32 -lfreeglut
 g++ -g Hw4.2.cpp -lopengl32 -lglu32 -lfreeglut
+g++ -g Hw5.1.cpp -lopengl32 -lglu32 -lfreeglut
+g++ -g triangles1.cpp -lopengl32 -lglu32 -lfreeglut
